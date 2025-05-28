@@ -1,0 +1,33 @@
+name: SonarCloud
+
+on:
+  push:
+    branches:
+      - main 
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    name: SonarCloud Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' 
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        with:
+          projectKey: tu_usuario_o_org_tu_repo
+          organization: tu_organizacion_en_sonarcloud
+        env:
+          SONAR_TOKEN: d3583ea0ba5504e8b1e3d37fcbc8161ff901cba2 # usar como variable de entorno en GitHub Secrets (CAMBIAMEEEE)
