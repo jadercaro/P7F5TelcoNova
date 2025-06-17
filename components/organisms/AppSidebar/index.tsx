@@ -1,16 +1,15 @@
 import * as React from "react";
 import { Trello, User, FileClock } from "lucide-react";
-import { NavMain } from "@/components/nav-main";
-import { NavUser } from "@/components/nav-user";
+import { SidebarOptions } from "@/components/molecules/SidebarOptions";
+import { UserNav } from "@/components/molecules/UserNav";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarRail,
 } from "@/components/ui/sidebar";
 
-type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
+export type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
   username: string,
   email: string
 };
@@ -20,7 +19,7 @@ export function AppSidebar({ username, email, ...props }: AppSidebarProps) {
     user: {
       name: username,
       email: email,
-      avatar: "/avatars/shadcn.jpg",
+      avatar: "",
     },
     navMain: [
       {
@@ -36,24 +35,23 @@ export function AppSidebar({ username, email, ...props }: AppSidebarProps) {
       },
       {
         title: "Historial",
-        url: "#",
+        url: "/incidents/history",
         icon: FileClock,
       },
     ],
   };
 
   return (
-    <Sidebar collapsible="icon" className="w-1/6 min-h-screen bg-gray-200" {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <img src="/logo.png" alt="Telconova SupportSuite" className="mx-auto" />
       </SidebarHeader>
       <SidebarContent className="flex align-items justify-center">
-        <NavMain items={data.navMain} />
+        <SidebarOptions items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <UserNav user={data.user} />
       </SidebarFooter>
-      <SidebarRail />
     </Sidebar>
   );
 }
